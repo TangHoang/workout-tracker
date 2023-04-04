@@ -1,0 +1,122 @@
+*{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+body {
+    display: flex;
+    flex-flow: column nowrap;
+    margin-top: 30px;
+    justify-content: center;
+    background-color: #FFFCFF;
+    width: 96vw;
+}
+
+
+header {
+    color: black;
+    height: auto;
+    margin-bottom: 30px;
+    align-self: center;
+}
+h1 {
+    justify-self: top;
+}
+
+#date{
+    text-align: center;
+    margin-top: -20px;
+}
+.container {
+  
+    width: 100%;
+    height: 100%;
+}
+
+.exercise {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    width: 90%;
+    align-self: center;
+    padding: 5px;
+    border: black solid 1px;
+}
+input{
+    border: none;
+    background-color:rgb(228, 228, 227);
+    border-radius: 5px;
+    text-align: center;
+    font-size: 2vh;
+}
+.log {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    grid-template-columns: 1fr 2fr 2fr 1fr;
+    grid-template-rows: auto;
+    height: auto;
+    width: 100%;
+    margin-top: 20px;
+    gap: 10px;
+}
+
+.log div{
+    padding-left: 10px;
+    padding-right: 10px;
+    text-align: center;
+    font-size: 2vh;
+}
+.log input {
+    width: 14vw;
+    justify-self: center;
+}
+.log button {
+    justify-self: center;
+    padding-right: 10px;
+    font-size: 2vh;
+    width: 7vw;
+}
+#set {
+    grid-column: 1/1;
+    grid-row: 1/1;
+}
+
+.exercise-control {
+    display: grid;
+    gap: 5px;
+    grid-template-columns: 1fr 1fr 5fr;
+    grid-template-rows: 1fr;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);    
+}
+
+button {
+    border: black;
+    border-radius: 5px;
+    width: 7vw;
+    min-width: 30px;
+    height: 3vh;
+    text-align: center;
+}
+#delete-exercise {
+    justify-self: end;
+    color: black;
+    background-color: crimson;
+    
+}
+
+#add-set {
+    width: 96%;
+    margin-top: 10px;
+    background-color: cornflowerblue;
+}
+
+#add-exercise {
+    width: 26%;
+    height: 6vh;
+    font-size: 1.7vh;
+    margin-top: 30px;
+    background-color: darkgreen;
+    align-self: center;
+}
