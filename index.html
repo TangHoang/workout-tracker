@@ -13,9 +13,26 @@
         <h1>Montag</h1>
         <div id="date"></div>
     </header>
-        <div class="exercise">
+        <div class="exercise exercise-1">
             <div class="exercise-control">
-                <input type="text">
+                <div class="text-container">
+                    <input type="text" list="programmingLanguages" 
+                                placeholder="Enter Here"
+                                id="exercise-input" class="exercise-1" />
+                    <datalist id="programmingLanguages">
+                        <option value="Bench Press">Bench Press</option>
+                        <option value="Squat">Squat</option>
+                        <option value="Deadlift">Deadlift</option>
+                        <option value="Pull Up">Pull Up</option>
+                        <option value="Dips">Dips</option>
+                        <option value="Leg Press">Leg Press</option>
+                        <option value="Bicep Curl">Bicep Curl</option>
+                        <option value="Skullcrushers">Skullcrushers</option>
+                        <option value="Lateral Raises">Lateral Raises</option>
+                    </datalist>
+                </div>
+               
+
                 <button id="save-exercise">OK</button>
                 <button id="delete-exercise">X</button>
             </div>       
@@ -25,11 +42,15 @@
                 <div id="Reps">Reps</div>
                 <div id="blank"></div>
                 <div>1</div>
-                <input type="number">
-                <input type="number">
-                <button>OK</button>
-            </div>     
-            <button id="add-set"> + Set</button>
+                <input type="number" id="kg-input" class="1">
+                <input type="number" id="reps-input" class="1">
+                <button>X</button>
+            </div>   
+            <div id=button-container>
+                <button id="add-set"> + Set</button>
+                <button id="finish-exercise">Finish</button> <!--#TODO save data locally-->
+            </div>  
+            
         </div>
        <button id="add-exercise"> + Exercise</button>
     

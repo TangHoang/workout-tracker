@@ -39,6 +39,7 @@ h1 {
     align-self: center;
     padding: 5px;
     border: black solid 1px;
+    border-radius: 5px;
 }
 input{
     border: none;
@@ -54,9 +55,11 @@ input{
     grid-template-columns: 1fr 2fr 2fr 1fr;
     grid-template-rows: auto;
     height: auto;
-    width: 100%;
+    width: 96%;
     margin-top: 20px;
     gap: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .log div{
@@ -70,10 +73,11 @@ input{
     justify-self: center;
 }
 .log button {
-    justify-self: center;
-    padding-right: 10px;
-    font-size: 2vh;
+    justify-self: end;
+    font-size: 1.7vh;
     width: 7vw;
+    background-color: crimson;
+    text-align: center;
 }
 #set {
     grid-column: 1/1;
@@ -83,7 +87,8 @@ input{
 .exercise-control {
     display: grid;
     gap: 5px;
-    grid-template-columns: 1fr 1fr 5fr;
+    width: 96%;
+    grid-template-columns: 3fr 1fr 1fr;
     grid-template-rows: 1fr;
     padding-left: 10px;
     padding-right: 10px;
@@ -103,20 +108,54 @@ button {
     justify-self: end;
     color: black;
     background-color: crimson;
+    font-size: 2vh;
     
+}
+#button-container{
+    width: 99%;
+    margin-top: 20px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+}
+
+#finish-exercise {
+    width: 46%;
+    margin-top: 10px;
+    background-color:mediumseagreen
+}
+
+#save-exercise {
+    background-color: mediumseagreen;
+    justify-self: center;
 }
 
 #add-set {
-    width: 96%;
+    width: 46%;
     margin-top: 10px;
     background-color: cornflowerblue;
 }
 
 #add-exercise {
+    color: #FFFCFF;
     width: 26%;
     height: 6vh;
     font-size: 1.7vh;
     margin-top: 30px;
-    background-color: darkgreen;
+    background-color: black;
     align-self: center;
+}
+
+#text-box {
+    text-align: center;
+}
+
+#exercise-input {
+    width: 90%;
+}
+
+.text-container input{
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
 }
