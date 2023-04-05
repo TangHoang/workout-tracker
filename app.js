@@ -11,7 +11,7 @@ let dateContainer = document.getElementById("date");
 const addSetButton = document.querySelector(".add-set");
 const finishExerciseButton = document.querySelector(".finish-exercise");
 const displayCurrentDay = document.getElementById("current-day");
-const addExerciseButton = document.getElementById("add-exercise");
+const addExerciseButton = document.querySelector(".add-exercise");
 const htmlBody = document.querySelector("body");
 const deleteExerciseButton = document.getElementById("delete-exercise1");
 
@@ -29,8 +29,8 @@ function getCurrentExerciseNumber(e){
     return currentExerciseNumber;
 }
 
-function pushData() {
-    let exerciseName = document.getElementById("exercise-").value;
+function pushData(e) {
+    let exerciseName = document.getElementById(`exercise-${getCurrentExerciseNumber(e)}`).value;
     let exerciseDataArray = []
     for(let i=1; i<=setNumber; i++){
         // iterate through sets
@@ -45,8 +45,9 @@ function pushData() {
     saveToLocalStorage(benchPressList, date, exerciseName);
     getFromLocalStorage();
 
-    const exerciseBody = document.getElementById(`exercise-${exerciseNumber}`);
+    const exerciseBody = document.getElementById(`exercise-${getCurrentExerciseNumber(e)}`);
     exerciseBody.style.background = "#B9deb7";
+    
 }
 
 function saveToLocalStorage(benchPressList, date, exerciseName) {
@@ -150,7 +151,7 @@ function addExercise() {
 
     const createFinishExerciseButton = document.createElement("button");
     createFinishExerciseButton.setAttribute("class", "finish-exercise");
-    createFinishExerciseButton.setAttribute("id", `add-set${exerciseNumber}`);
+    createFinishExerciseButton.setAttribute("id", `finish-exercise${exerciseNumber}`);
     createFinishExerciseButton.innerHTML = "Finish";
     
     //then creating html document structure
@@ -171,8 +172,8 @@ function addExercise() {
     createButtonContainer.appendChild(createFinishExerciseButton);
 
 
-    const newAddSetButton = document.getElementById(`finish-exercise${exerciseNumber}`);
-    const newFinishExerciseButton = document.getElementById(`finish-exercise${exerciseNumber}`);
+    
     createAddSetButton.addEventListener("click", addSet);
     createDeleteExerciseButton.addEventListener("click", deleteExercise);
+    createFinishExerciseButton.addEventListener("click", pushData);
 }

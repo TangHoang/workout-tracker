@@ -138,7 +138,7 @@ button {
     background-color: cornflowerblue;
 }
 
-#add-exercise {
+.add-exercise {
     position: fixed;
     bottom: 10%;
     right: auto;
