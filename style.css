@@ -84,10 +84,6 @@ input{
     background-color: crimson;
     text-align: center;
 }
-#set {
-    grid-column: 1/1;
-    grid-row: 1/1;
-}
 
 .exercise-control {
     display: grid;
@@ -109,14 +105,14 @@ button {
     height: 3vh;
     text-align: center;
 }
-#delete-exercise {
+.delete-exercise {
     justify-self: end;
     color: black;
     background-color: crimson;
     font-size: 2vh;
     
 }
-#button-container{
+.button-container{
     width: 99%;
     margin-top: 20px;
     display: flex;
@@ -124,18 +120,18 @@ button {
     justify-content: space-between;
 }
 
-#finish-exercise {
+.finish-exercise {
     width: 46%;
     margin-top: 10px;
     background-color:mediumseagreen
 }
 
-#save-exercise {
+.save-exercise {
     background-color: mediumseagreen;
     justify-self: center;
 }
 
-#add-set {
+.add-set {
     width: 46%;
     margin-top: 10px;
     background-color: cornflowerblue;
@@ -155,7 +151,7 @@ button {
     text-align: center;
 }
 
-#exercise-input {
+.exercise-input {
     width: 90%;
 }
 
