@@ -3,6 +3,7 @@ let setNumber = 1;
 let exerciseNumber = 1;
 
 let benchPressList = [];
+// test
 
 
 let dateContainer = document.getElementById("date");
