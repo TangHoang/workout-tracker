@@ -1,13 +1,18 @@
 *{
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
+
+
 body {
     display: flex;
     flex-flow: column nowrap;
     margin-top: 30px;
-    justify-content: center;
+    justify-content: flex-start;
     background-color: #FFFCFF;
     width: 96vw;
+    height: auto;
+    padding-bottom: 100px;
+    margin-bottom: 50px;
 }
 
 
@@ -159,3 +164,4 @@ button {
     text-align: center;
     font-weight: bold;
 }
+
