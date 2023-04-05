@@ -1,73 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="navbar.css">
-    <title>workout tracker</title>
-</head>
-<body>
-    
-    <header>
-        <h1 id="current-day"></h1>
-        <div id="date"></div>
-    </header>
-    <div class="exercise" id="exercise-1">
-        <div class="exercise-control">
-            <div class="text-container">
-                <input type="text" list="exerciseList" 
-                            placeholder="Enter Here"
-                            id="exercise-1" class="exercise-input" />
-                <datalist id="exerciseList">
-                    <option value="Bench Press">Bench Press</option>
-                    <option value="Squat">Squat</option>
-                    <option value="Deadlift">Deadlift</option>
-                    <option value="Pull Up">Pull Up</option>
-                    <option value="Dips">Dips</option>
-                    <option value="Leg Press">Leg Press</option>
-                    <option value="Bicep Curl">Bicep Curl</option>
-                    <option value="Skullcrushers">Skullcrushers</option>
-                    <option value="Lateral Raises">Lateral Raises</option>
-                </datalist>
-            </div>
-            
-
-            <button class="save-exercise" id="save-exercise1">OK</button>
-            <button class="delete-exercise" id="delete-exercise1">X</button>
-        </div>       
-        <div class="log" id="log-1">
-            <div class="set">Set</div>
-            <div class="kg">kg</div>
-            <div class ="reps">Reps</div>
-            <div class="blank"></div>
-            <div>1</div>
-            <input type="number" id="" class="kg-input 1">
-            <input type="number" id="" class="reps-input 1">
-            <button>X</button>
-        </div>   
-        <div class="button-container">
-            <button class="add-set" id="add-set1"> + Set</button>
-            <button class="finish-exercise" id="finish-exercise1">Finish</button> 
-        </div>  
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="navbar.css">
+        <title>workout tracker</title>
+    </head>
+    <body>
         
-    </div>
-    <button id="add-exercise1" class="add-exercise"> + </button>
+        <header>
+            <h1 id="current-day"></h1>
+            <div id="date"></div>
+        </header>
+        <div class="exercise" id="exercise-1">
+            <div class="exercise-control">
+                <div class="text-container">
+                    <input type="text" list="exerciseList" 
+                                placeholder="Enter Here"
+                                id="exercise-1" class="exercise-input" />
+                    <datalist id="exerciseList">
+                        <option value="Bench Press">Bench Press</option>
+                        <option value="Squat">Squat</option>
+                        <option value="Deadlift">Deadlift</option>
+                        <option value="Pull Up">Pull Up</option>
+                        <option value="Dips">Dips</option>
+                        <option value="Leg Press">Leg Press</option>
+                        <option value="Bicep Curl">Bicep Curl</option>
+                        <option value="Skullcrushers">Skullcrushers</option>
+                        <option value="Lateral Raises">Lateral Raises</option>
+                    </datalist>
+                </div>
+                
 
-    <nav class="mobile-nav">
-        <a href="/pages/calender.html" class="icon">
-            <img src="/icons/calendar.png" alt="">
-        </a>
-        <a href="/index.html" class="icon">
-            <img src="/icons/zuhause.png" alt="home button">
-        </a>
-        </a>
-        <a href="/pages/log.html" class="icon">
-            <img src="/icons/notes.png" alt="">
-        </a>
-    </nav>
+                <button class="save-exercise" id="save-exercise1">OK</button>
+                <button class="delete-exercise" id="delete-exercise1">X</button>
+            </div>       
+            <div class="log" id="log-1">
+                <div class="set">Set</div>
+                <div class="kg">kg</div>
+                <div class ="reps">Reps</div>
+                <div class="blank"></div>
+                <div>1</div>
+                <input type="number" id="" class="kg-input 1">
+                <input type="number" id="" class="reps-input 1">
+                <button>X</button>
+            </div>   
+            <div class="button-container">
+                <button class="add-set" id="add-set1"> + Set</button>
+                <button class="finish-exercise" id="finish-exercise1">Finish</button> 
+            </div>  
+            
+        </div>
+        <button id="add-exercise1" class="add-exercise"> + </button>
 
-    <script src="app.js"></script>
-</body>
+        <nav class="mobile-nav">
+            <a href="pages/calender.html" class="icon" id="calender-link">
+                <img src="icons/calendar.png" alt="calender">
+            </a>
+            <a href="#" class="icon" id="home-link">
+                <img src="icons/zuhause.png" alt="home">
+            </a>
+            </a>
+            <a href="pages/log.html" class="icon" id="log-link">
+                <img src="icons/notes.png" alt="log">
+            </a>
+        </nav>
+
+        <script src="app.js"></script>
+    </body>
 </html>

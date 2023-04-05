@@ -14,7 +14,20 @@ const displayCurrentDay = document.getElementById("current-day");
 const addExerciseButton = document.querySelector(".add-exercise");
 const htmlBody = document.querySelector("body");
 const deleteExerciseButton = document.getElementById("delete-exercise1");
-
+const logLink = document.getElementById("log-link");
+const homeLink = document.getElementById("home-link");
+const htmlHtml = document.querySelector("html");
+const scriptTag = document.querySelector("script");
+logLink.onclick = () => {
+    localStorage.setItem("index_html", document.documentElement.outerHTML);
+}
+homeLink.onclick = () => {
+    let htmlString = localStorage.getItem("index_html");
+    const parser = new DOMParser();
+    let doc = parser.parseFromString(htmlString, "text/html");
+    const newDiv = document.createElement("div");
+    htmlHtml.innerHTML = doc.documentElement.outerHTML;    
+}
 addSetButton.addEventListener("click", addSet);
 finishExerciseButton.addEventListener("click", pushData);
 addExerciseButton.addEventListener("click", addExercise);
@@ -163,7 +176,7 @@ function addExercise() {
     createFinishExerciseButton.innerHTML = "Finish";
     
     //then creating html document structure
-    htmlBody.appendChild(createExerciseDiv);
+    htmlBody.insertBefore(createExerciseDiv, scriptTag);
         createExerciseDiv.appendChild(createExerciseControlDiv);
             createExerciseControlDiv.appendChild(createTextContainerDiv);
                 createTextContainerDiv.appendChild(createInputDiv);
@@ -179,8 +192,6 @@ function addExercise() {
             createButtonContainer.appendChild(createAddSetButton);
     createButtonContainer.appendChild(createFinishExerciseButton);
 
-
-    
     createAddSetButton.addEventListener("click", addSet);
     createDeleteExerciseButton.addEventListener("click", deleteExercise);
     createFinishExerciseButton.addEventListener("click", pushData);
