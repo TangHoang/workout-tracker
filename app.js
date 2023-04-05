@@ -23,9 +23,14 @@ deleteExerciseButton.addEventListener("click", deleteExercise);
 dateContainer.innerHTML = date;
 displayCurrentDay.innerHTML = currentDay;
 
+function getCurrentExerciseNumber(e){
+    let currentExerciseNumber = e.target.id;
+    currentExerciseNumber = currentExerciseNumber.charAt(currentExerciseNumber.length - 1);
+    return currentExerciseNumber;
+}
 
 function pushData() {
-    let exerciseName = document.getElementById("exercise-1").value;
+    let exerciseName = document.getElementById("exercise-").value;
     let exerciseDataArray = []
     for(let i=1; i<=setNumber; i++){
         // iterate through sets
@@ -55,18 +60,13 @@ function getFromLocalStorage(key) {
 
 function deleteExercise(e) {
     exerciseNumber--;
-    let currentExerciseNumber = e.target.id;
-    currentExerciseNumber = currentExerciseNumber.charAt(currentExerciseNumber.length - 1);
-    let deleteExerciseDiv = document.getElementById(`exercise-${currentExerciseNumber}`);
+    let deleteExerciseDiv = document.getElementById(`exercise-${getCurrentExerciseNumber(e)}`);
     deleteExerciseDiv.replaceChildren();
     deleteExerciseDiv.remove();
 }
 
 function addSet(e) {
-    let currentExerciseNumber = e.target.id;
-    currentExerciseNumber = currentExerciseNumber.charAt(currentExerciseNumber.length - 1);
-    console.log(currentExerciseNumber);
-    const exercisePage = document.getElementById(`log-${currentExerciseNumber}`);
+    const exercisePage = document.getElementById(`log-${getCurrentExerciseNumber(e)}`);
 
     setNumber++;
     const newDiv = document.createElement("div");
