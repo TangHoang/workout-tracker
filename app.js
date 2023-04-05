@@ -114,6 +114,14 @@ function addExercise() {
     const createDatalist = document.createElement("datalist");
     createDatalist.setAttribute("id", "exerciseList");
 
+    for(let i=0; i<exerciseList.length; i++) {
+        let createOption = document.createElement("option");
+        createOption.setAttribute("value", exerciseList[i]);
+        createOption.innerHTML = exerciseList[i];
+
+        createDatalist.appendChild(createOption);
+    }
+
     const createSaveExerciseButton = document.createElement("button");
     createSaveExerciseButton.setAttribute("class", "save-exercise");
     createSaveExerciseButton.setAttribute("id", `save-exercise${exerciseNumber}`);
