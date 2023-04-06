@@ -6,10 +6,9 @@
 body {
     display: flex;
     flex-flow: column nowrap;
-    margin-top: 30px;
     justify-content: flex-start;
     background-color: #FFFCFF;
-    width: 96vw;
+    width: 100vw;
     height: auto;
     padding-bottom: 100px;
     margin-bottom: 50px;
@@ -20,7 +19,7 @@ body {
     position: fixed;
     bottom: 0;
     height: 65px;
-    width: 96%;
+    width: 100%;
     display: flex;
     justify-content: space-around;
 }

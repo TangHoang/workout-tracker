@@ -14,6 +14,7 @@ const displayCurrentDay = document.getElementById("current-day");
 const addExerciseButton = document.querySelector(".add-exercise");
 const htmlBody = document.querySelector("body");
 const deleteExerciseButton = document.getElementById("delete-exercise1");
+const pageIndexHtml = document.getElementById("index_html");
 
 addSetButton.addEventListener("click", addSet);
 finishExerciseButton.addEventListener("click", pushData);
@@ -47,7 +48,6 @@ function pushData(e) {
 
     const exerciseBody = document.getElementById(`exercise-${getCurrentExerciseNumber(e)}`);
     exerciseBody.style.background = "#B9deb7";
-    
 }
 
 function saveToLocalStorage(benchPressList, date, exerciseName) {
@@ -85,7 +85,10 @@ function addSet(e) {
     exercisePage.appendChild(kgInput);
     exercisePage.appendChild(repsInput);
     exercisePage.appendChild(okButton);
-    
+}
+
+function pageScroll() {
+
 }
 
 function addExercise() {
@@ -155,7 +158,7 @@ function addExercise() {
     createFinishExerciseButton.innerHTML = "Finish";
     
     //then creating html document structure
-    htmlBody.appendChild(createExerciseDiv);
+    pageIndexHtml.appendChild(createExerciseDiv);
         createExerciseDiv.appendChild(createExerciseControlDiv);
             createExerciseControlDiv.appendChild(createTextContainerDiv);
                 createTextContainerDiv.appendChild(createInputDiv);
@@ -171,9 +174,8 @@ function addExercise() {
             createButtonContainer.appendChild(createAddSetButton);
     createButtonContainer.appendChild(createFinishExerciseButton);
 
-
-    
     createAddSetButton.addEventListener("click", addSet);
     createDeleteExerciseButton.addEventListener("click", deleteExercise);
     createFinishExerciseButton.addEventListener("click", pushData);
+    pageScroll();
 }
