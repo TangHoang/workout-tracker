@@ -26,9 +26,12 @@ body {
     justify-content: flex-start;
     background-color: #FFFCFF;
     width: 100vw;
+    max-width: 450px;
     height: auto;
     padding-bottom: 100px;
     margin-bottom: 50px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 
@@ -78,7 +81,7 @@ input{
     display: grid;
     justify-content: center;
     align-items: center;
-    grid-template-columns: 1fr 2fr 2fr 1fr;
+    grid-template-columns: 2fr 3fr 3fr 2fr;
     grid-template-rows: auto;
     height: auto;
     width: 96%;
@@ -95,13 +98,13 @@ input{
     font-size: 2vh;
 }
 .log input {
-    width: 14vw;
+    width: 70%;
     justify-self: center;
 }
 .log button {
     justify-self: end;
     font-size: 1.7vh;
-    width: 7vw;
+    width: 50%;
     background-color: crimson;
     text-align: center;
 }
@@ -121,7 +124,7 @@ input{
 button {
     border: black;
     border-radius: 5px;
-    width: 7vw;
+    width: 50%vw;
     min-width: 30px;
     height: 3vh;
     text-align: center;
