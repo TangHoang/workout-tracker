@@ -54,7 +54,7 @@ h1 {
     display: flex;
     flex-flow: column;
     align-items: center;
-    width: 90%;
+    width: 80%;
     padding: 5px;
     border: black solid 1px;
     color: black;
@@ -83,7 +83,7 @@ input{
     height: auto;
     width: 96%;
     margin-top: 10px;
-    gap: 7px;
+    gap: 5px;
     padding-left: 10px;
     padding-right: 10px;
 }
