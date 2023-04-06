@@ -23,6 +23,10 @@
     height: 100vh;
 }
 
+#specific-log_html {
+    display: none;
+}
+
 
 body {
     display: flex;
@@ -106,8 +110,8 @@ input{
 .log button {
     justify-self: end;
     font-size: 1.7vh;
-    width: 50%;
-    background-color: crimson;
+    width: 20%;
+    background-color: rgb(246, 42, 83);
     text-align: center;
     box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
 
@@ -138,7 +142,7 @@ button {
 .delete-exercise {
     justify-self: end;
     color: black;
-    background-color: crimson;
+    background-color: rgb(178, 4, 39);
     font-size: 2vh;
 }
 .button-container{
