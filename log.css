@@ -1,0 +1,26 @@
+#log_html #header-container{
+    width: 100%;
+    height: 10%;
+    margin-bottom: 60px;
+    margin-top: 20px;
+}
+
+#logs-grid{
+    display: grid;
+    width: 90%;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    gap: 10px;
+}
+
+.log-grid-element{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color:rgb(228, 228, 227);  
+    font-size: 2.3vh;
+    height: 100px;
+    width: 100%;
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+}
