@@ -14,7 +14,35 @@ const displayCurrentDay = document.getElementById("current-day");
 const addExerciseButton = document.querySelector(".add-exercise");
 const htmlBody = document.querySelector("body");
 const deleteExerciseButton = document.getElementById("delete-exercise1");
-const pageIndexHtml = document.getElementById("index_html");
+const pageIndexDiv = document.getElementById("index_html");
+const pageCalenderDiv = document.getElementById("calender_html");
+const pageLogDiv = document.getElementById("log_html");
+
+const links = document.getElementsByClassName("icon");
+
+// switch pages
+for(let i=0; i<links.length; i++) {
+    let self = links[i];
+    self.addEventListener("click", function(e) {
+        let currentPage = e.target.id.substring(5);
+        switch(currentPage) {
+            case "index_html":
+                pageCalenderDiv.style.display = "none";
+                pageIndexDiv.style.display = "block";
+                pageLogDiv.style.display = "none";
+                break;
+            case "log_html":
+                pageCalenderDiv.style.display = "none";
+                pageIndexDiv.style.display = "none";
+                pageLogDiv.style.display = "block";
+                break;
+            case "calender_html":
+                pageCalenderDiv.style.display = "block";
+                pageIndexDiv.style.display = "none";
+                pageLogDiv.style.display = "none";
+        }
+    })
+}
 
 addSetButton.addEventListener("click", addSet);
 finishExerciseButton.addEventListener("click", pushData);
@@ -87,10 +115,6 @@ function addSet(e) {
     exercisePage.appendChild(okButton);
 }
 
-function pageScroll() {
-
-}
-
 function addExercise() {
     setNumber = 0;
     exerciseNumber++;
@@ -158,7 +182,7 @@ function addExercise() {
     createFinishExerciseButton.innerHTML = "Finish";
     
     //then creating html document structure
-    pageIndexHtml.appendChild(createExerciseDiv);
+    pageIndexDiv.appendChild(createExerciseDiv);
         createExerciseDiv.appendChild(createExerciseControlDiv);
             createExerciseControlDiv.appendChild(createTextContainerDiv);
                 createTextContainerDiv.appendChild(createInputDiv);
