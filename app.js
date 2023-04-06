@@ -4,7 +4,8 @@ const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Satur
 let currentDay = days[otherDate.getDay()];
 let setNumber = 1;
 let exerciseNumber = 1;
-let benchPressList = [];
+let benchPressLog, squatLog, deadliftLog, pullUpLog, dipsLog, legPressLog, bicepCurlLog, skullcrushersLog, lateralRaisesLog = [];
+let logs = [benchPressLog, squatLog, deadliftLog, pullUpLog, dipsLog, legPressLog, bicepCurlLog, skullcrushersLog, lateralRaisesLog];
 let exerciseList = ["Bench Press", "Squat", "Deadlift", "Pull Up", "Dips", "Leg Press", "Bicep Curl", "Skullcrushers", "Lateral Raises"];
 
 let dateContainer = document.getElementById("date");
@@ -34,6 +35,7 @@ for(let i=0; i<links.length; i++) {
                 pageCalenderDiv.style.display = "none";
                 pageIndexDiv.style.display = "none";
                 pageLogDiv.style.display = "block";
+                
                 break;
             case "calender_html":
                 pageCalenderDiv.style.display = "block";
@@ -57,24 +59,27 @@ function getCurrentExerciseNumber(e){
     return currentExerciseNumber;
 }
 
+function changeBackgroundAfterFinish(e){
+    const exerciseBody = document.getElementById(`exercise${getCurrentExerciseNumber(e)}`);
+    exerciseBody.style.background = "#B9deb7";
+}
+
 function pushData(e) {
-    let exerciseName = document.getElementById(`exercise-${getCurrentExerciseNumber(e)}`).value;
-    let exerciseDataArray = []
+    let currentExerciseNumber = getCurrentExerciseNumber(e);
+    let exerciseName = document.getElementById(`exercise-${currentExerciseNumber}`).value;
+    let exerciseDataArray = [];
+    let exerciseLog = [];
+    
     for(let i=1; i<=setNumber; i++){
-        // iterate through sets
-        let exerciseData = document.getElementsByClassName(`${i}`);
-        // get values of Nodes
+        let exerciseData = document.getElementsByClassName(`${currentExerciseNumber}${i}`);
         exerciseDataArray = Array.from(exerciseData).map(t => t.value);
-        benchPressList.push(exerciseDataArray);
+        exerciseLog.push(exerciseDataArray);
+        console.log(exerciseLog);
     }
     // insert at start of array
-    benchPressList.unshift([date,exerciseName]);
-    console.log(benchPressList);
-    saveToLocalStorage(benchPressList, date, exerciseName);
-    getFromLocalStorage();
-
-    const exerciseBody = document.getElementById(`exercise-${getCurrentExerciseNumber(e)}`);
-    exerciseBody.style.background = "#B9deb7";
+    exerciseLog.unshift([date,exerciseName]);
+    saveToLocalStorage(exerciseLog, date, exerciseName);
+    changeBackgroundAfterFinish(e);
 }
 
 function saveToLocalStorage(benchPressList, date, exerciseName) {
@@ -88,7 +93,7 @@ function getFromLocalStorage(key) {
 
 function deleteExercise(e) {
     exerciseNumber--;
-    let deleteExerciseDiv = document.getElementById(`exercise-${getCurrentExerciseNumber(e)}`);
+    let deleteExerciseDiv = document.getElementById(`exercise${getCurrentExerciseNumber(e)}`);
     deleteExerciseDiv.replaceChildren();
     deleteExerciseDiv.remove();
 }
@@ -103,8 +108,8 @@ function addSet(e) {
     const okButton = document.createElement("button");
 
     // add key: "setNumber" for later reference
-    kgInput.classList.add(`${setNumber}`);
-    repsInput.classList.add(`${setNumber}`);
+    kgInput.classList.add(`${exerciseNumber}${setNumber}`);
+    repsInput.classList.add(`${exerciseNumber}${setNumber}`);
     newDiv.innerHTML = `${setNumber}`;
     okButton.innerHTML = "X";
 
@@ -122,7 +127,7 @@ function addExercise() {
     // by creating nodes first
     let createExerciseDiv = document.createElement("div");
     createExerciseDiv.setAttribute("class", "exercise");
-    createExerciseDiv.setAttribute("id", `exercise-${exerciseNumber}`);
+    createExerciseDiv.setAttribute("id", `exercise${exerciseNumber}`);
 
     const createExerciseControlDiv = document.createElement("div");
     createExerciseControlDiv.setAttribute("class", "exercise-control");
@@ -208,5 +213,4 @@ function addExercise() {
     createAddSetButton.addEventListener("click", addSet);
     createDeleteExerciseButton.addEventListener("click", deleteExercise);
     createFinishExerciseButton.addEventListener("click", pushData);
-    pageScroll();
 }
