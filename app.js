@@ -140,6 +140,14 @@ function addExercise() {
     const createDatalist = document.createElement("datalist");
     createDatalist.setAttribute("id", "exerciseList");
 
+    for(let i=0; i<exerciseList.length; i++) {
+        let createOption = document.createElement("option");
+        createOption.setAttribute("value", exerciseList[i]);
+        createOption.innerHTML = exerciseList[i];
+
+        createDatalist.appendChild(createOption);
+    }
+
     const createSaveExerciseButton = document.createElement("button");
     createSaveExerciseButton.setAttribute("class", "save-exercise");
     createSaveExerciseButton.setAttribute("id", `save-exercise${exerciseNumber}`);
@@ -149,7 +157,7 @@ function addExercise() {
     createDeleteExerciseButton.setAttribute("class", "delete-exercise");
     createDeleteExerciseButton.setAttribute("id", `delete-exercise${exerciseNumber}`);
     createDeleteExerciseButton.innerHTML = "X";
-   
+
     const createLogDiv = document.createElement("div");
     createLogDiv.setAttribute("class", "log");
     createLogDiv.setAttribute("id", `log-${exerciseNumber}`);
@@ -169,7 +177,7 @@ function addExercise() {
 
     const createButtonContainer = document.createElement("div");
     createButtonContainer.setAttribute("class", "button-container");
-    
+
     const createAddSetButton = document.createElement("button");
     createAddSetButton.setAttribute("class", "add-set");
     createAddSetButton.setAttribute("id", `add-set${exerciseNumber}`)
@@ -179,7 +187,7 @@ function addExercise() {
     createFinishExerciseButton.setAttribute("class", "finish-exercise");
     createFinishExerciseButton.setAttribute("id", `finish-exercise${exerciseNumber}`);
     createFinishExerciseButton.innerHTML = "Finish";
-    
+
     //then creating html document structure
     pageIndexDiv.appendChild(createExerciseDiv);
         createExerciseDiv.appendChild(createExerciseControlDiv);
@@ -193,7 +201,7 @@ function addExercise() {
             createLogDiv.appendChild(createKgDiv);
             createLogDiv.appendChild(createRepsDiv);
             createLogDiv.appendChild(createBlankDiv);
-         createExerciseDiv.appendChild(createButtonContainer);  
+         createExerciseDiv.appendChild(createButtonContainer);
             createButtonContainer.appendChild(createAddSetButton);
     createButtonContainer.appendChild(createFinishExerciseButton);
 
