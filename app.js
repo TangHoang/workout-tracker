@@ -19,6 +19,7 @@ const pageIndexDiv = document.getElementById("index_html");
 const pageCalenderDiv = document.getElementById("calender_html");
 const pageLogDiv = document.getElementById("log_html");
 const links = document.getElementsByClassName("icon");
+const logsGrid = document.getElementById("logs-grid");
 
 // switch pages
 for(let i=0; i<links.length; i++) {
@@ -28,17 +29,16 @@ for(let i=0; i<links.length; i++) {
         switch(currentPage) {
             case "index_html":
                 pageCalenderDiv.style.display = "none";
-                pageIndexDiv.style.display = "block";
+                pageIndexDiv.style.display = "flex";
                 pageLogDiv.style.display = "none";
                 break;
             case "log_html":
                 pageCalenderDiv.style.display = "none";
                 pageIndexDiv.style.display = "none";
-                pageLogDiv.style.display = "block";
-                
+                pageLogDiv.style.display = "flex";
                 break;
             case "calender_html":
-                pageCalenderDiv.style.display = "block";
+                pageCalenderDiv.style.display = "flex";
                 pageIndexDiv.style.display = "none";
                 pageLogDiv.style.display = "none";
         }
@@ -53,6 +53,19 @@ deleteExerciseButton.addEventListener("click", deleteExercise);
 dateContainer.innerHTML = date;
 displayCurrentDay.innerHTML = currentDay;
 
+function loadLogPage(){
+    for(let i=0; i<exerciseList.length; i++){
+        console.log("Guten Morgen");
+        let gridElement = document.createElement("div");
+        gridElement.setAttribute("class", "log-grid-element");
+        gridElement.innerHTML = `${exerciseList[i]}`;
+        gridElement.addEventListener("click", openExerciseLog);
+        logsGrid.appendChild(gridElement);
+    }
+}
+function openExerciseLog(e){
+    //TODO
+}
 function getCurrentExerciseNumber(e){
     let currentExerciseNumber = e.target.id;
     currentExerciseNumber = currentExerciseNumber.charAt(currentExerciseNumber.length - 1);
@@ -66,7 +79,7 @@ function changeBackgroundAfterFinish(e){
 
 function pushData(e) {
     let currentExerciseNumber = getCurrentExerciseNumber(e);
-    let exerciseName = document.getElementById(`exercise-${currentExerciseNumber}`).value;
+    let exerciseName = document.getElementById(`exercise-${currentExerciseNumber}`).value; //this ID is from the input node
     let exerciseDataArray = [];
     let exerciseLog = [];
     
@@ -107,7 +120,7 @@ function addSet(e) {
     const repsInput = document.createElement("input");
     const okButton = document.createElement("button");
 
-    // add key: "setNumber" for later reference
+    // add key: "exerciseNumber + setNumber" for later reference
     kgInput.classList.add(`${exerciseNumber}${setNumber}`);
     repsInput.classList.add(`${exerciseNumber}${setNumber}`);
     newDiv.innerHTML = `${setNumber}`;
@@ -125,6 +138,7 @@ function addExercise() {
     console.log(exerciseNumber);
     // create new exercise Card
     // by creating nodes first
+    // MAKE THIS UGLY MESS PRETTIER PLEASE!
     let createExerciseDiv = document.createElement("div");
     createExerciseDiv.setAttribute("class", "exercise");
     createExerciseDiv.setAttribute("id", `exercise${exerciseNumber}`);
@@ -214,3 +228,4 @@ function addExercise() {
     createDeleteExerciseButton.addEventListener("click", deleteExercise);
     createFinishExerciseButton.addEventListener("click", pushData);
 }
+loadLogPage();

@@ -4,7 +4,9 @@
     padding: 0;
 }
 #index_html {
-    display: block;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
     height: auto;
     margin-bottom: 200px;
 }
@@ -16,6 +18,8 @@
 
 #log_html {
     display: none;
+    flex-flow: column nowrap;
+    align-items: center;
     height: 100vh;
 }
 
@@ -59,16 +63,12 @@ h1 {
     align-items: center;
     width: 80%;
     padding: 5px;
-    border: black solid 1px;
+    border: rgba(0, 0, 0, 0.4) solid 1px;
     color: black;
     border-radius: 5px;
     margin-bottom: 30px;
-    margin-left: 50%;
-    transform: translate(-50%, 0);
-    -webkit-transform: translate(-50%, 0);
-    -moz-transform: translate(-50%, 0);
-    -ms-transform: translate(-50%, 0);
-    -o-transform: translate(-50%, 0);
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+
 }
 input{
     border: none;
@@ -76,6 +76,8 @@ input{
     border-radius: 5px;
     text-align: center;
     font-size: 2vh;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+
 }
 .log {
     display: grid;
@@ -107,6 +109,8 @@ input{
     width: 50%;
     background-color: crimson;
     text-align: center;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+
 }
 
 .exercise-control {
@@ -128,6 +132,8 @@ button {
     min-width: 30px;
     height: 3vh;
     text-align: center;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+
 }
 .delete-exercise {
     justify-self: end;
@@ -172,12 +178,14 @@ button {
     height: 6vh;
     font-size: 5vh;
     margin-top: 30px;
-    background-color: black;
+    background-color: rgb(17, 16, 16);
     align-self: center;
     justify-self: center;
     text-align: center;
     border-radius: 30px;
     z-index: 10;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+
 }
 
 #text-box {

@@ -19,6 +19,9 @@
     -moz-transform: translate(-50%, 0);
     -ms-transform: translate(-50%, 0);
     -o-transform: translate(-50%, 0);
+    box-shadow: 0px -1px 5px #888;
+    z-index: 20;
+    border-radius: 10px;
 }
 .icon {
     display: flex;
@@ -28,5 +31,6 @@
 
 .icon img {
     width: 45px;
+    height: 50px;
 }
 
