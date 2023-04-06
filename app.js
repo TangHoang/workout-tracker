@@ -17,7 +17,6 @@ const deleteExerciseButton = document.getElementById("delete-exercise1");
 const pageIndexDiv = document.getElementById("index_html");
 const pageCalenderDiv = document.getElementById("calender_html");
 const pageLogDiv = document.getElementById("log_html");
-
 const links = document.getElementsByClassName("icon");
 
 // switch pages
