@@ -133,7 +133,7 @@ function addSet(e) {
 }
 
 function addExercise() {
-    setNumber = 0;
+    setNumber = 1;
     exerciseNumber++;
     console.log(exerciseNumber);
     // create new exercise Card
@@ -186,13 +186,28 @@ function addExercise() {
     createSetDiv.innerHTML = "Set";
 
     const createKgDiv = document.createElement("div");
-    createKgDiv.setAttribute("class", "reps");
+    createKgDiv.setAttribute("class", "kg");
     createKgDiv.innerHTML = "kg";
 
     const createRepsDiv = document.createElement("div");
-    createRepsDiv.setAttribute("class", "blank");
+    createRepsDiv.setAttribute("class", "reps");
     createRepsDiv.innerHTML = "Reps";
+
     const createBlankDiv = document.createElement("div");
+    createBlankDiv.setAttribute("class", "blank");
+
+    const createSetNumber = document.createElement("div");
+    createSetNumber.innerHTML = "1";
+
+    const createInputKg = document.createElement("input");
+    createInputKg.setAttribute("type", "number");
+    createInputDiv.setAttribute("class", `kg-input ${exerciseNumber}${setNumber}`);
+    const createInputReps = document.createElement("input");
+    createInputReps.setAttribute("type", "number");
+    createInputDiv.setAttribute("class", `reps-input ${exerciseNumber}${setNumber}`);
+
+    const createDeleteSetButton = document.createElement("button");
+    createDeleteSetButton.innerHTML = "X";
 
     const createButtonContainer = document.createElement("div");
     createButtonContainer.setAttribute("class", "button-container");
@@ -220,6 +235,10 @@ function addExercise() {
             createLogDiv.appendChild(createKgDiv);
             createLogDiv.appendChild(createRepsDiv);
             createLogDiv.appendChild(createBlankDiv);
+            createLogDiv.appendChild(createSetNumber);
+            createLogDiv.appendChild(createInputKg);
+            createLogDiv.appendChild(createInputReps);
+            createLogDiv.appendChild(createDeleteSetButton);
          createExerciseDiv.appendChild(createButtonContainer);
             createButtonContainer.appendChild(createAddSetButton);
     createButtonContainer.appendChild(createFinishExerciseButton);
