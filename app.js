@@ -85,22 +85,30 @@ function openExerciseLog(currentExerciseName){
     let keys = [];
 
     let allKeys = Object.keys(localStorage);
+    if(allKeys == []){
+        buildLogPageHeader(data, currentExerciseName);
+        return;
+    }
     for(let i=0; i<allKeys.length; i++){
         if(allKeys[i].includes(currentExerciseName)){
             data.push(getFromLocalStorage(allKeys[i])); // save all data in array
             keys.push(localStorage.key(i)); // save keys to delete them from localStorage if needed
         }
     }
-    buildLogPageHeader(data);
+    buildLogPageHeader(data, currentExerciseName);
     buildLogPageCards(data, keys);
     console.log(data);
 }
-function buildLogPageHeader(data){
+function buildLogPageHeader(data, currentExerciseName){
     let headerDiv = document.createElement("div");
     pageSpecificLogDiv.appendChild(headerDiv);
     let headerH1 = document.createElement("h1");
     headerDiv.appendChild(headerH1);
     headerDiv.setAttribute("id", "log-header");
+    if(data.length == 0){
+        headerH1.innerHTML = "<br />" + "empty...";
+        return;
+    }
     headerH1.innerHTML = data[0][0][0];
 }
 function buildLogPageCards(data, keys){
