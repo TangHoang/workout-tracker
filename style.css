@@ -25,6 +25,8 @@
 
 #specific-log_html {
     display: none;
+    flex-flow: column nowrap;
+    align-items: center;
 }
 
 

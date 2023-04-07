@@ -75,18 +75,59 @@ function loadLogPage(){
     }
 }
 function openExerciseLog(currentExerciseName){
+    // clear page
+    pageSpecificLogDiv.innerHTML = "";
     pageCalenderDiv.style.display = "none";
     pageIndexDiv.style.display = "none";
     pageLogDiv.style.display = "none";
     pageSpecificLogDiv.style.display = "flex";
+    let data = [];
 
     let allKeys = Object.keys(localStorage);
     for(let i=0; i<allKeys.length; i++){
         if(allKeys[i].includes(currentExerciseName)){
-            pageSpecificLogDiv.innerHTML += getFromLocalStorage(allKeys[i]);
+            data.push(getFromLocalStorage(allKeys[i])); // save all data in array
+        }
+    }
+    buildLogPageHeader(data);
+    buildLogPageCards(data);
+    console.log(data);
+}
+function buildLogPageHeader(data){
+    let headerDiv = document.createElement("div");
+    pageSpecificLogDiv.appendChild(headerDiv);
+    let headerH1 = document.createElement("h1");
+    headerDiv.appendChild(headerH1);
+    headerDiv.setAttribute("id", "log-header");
+    headerH1.innerHTML = data[0][0][0];
+
+
+}
+function buildLogPageCards(data){
+    for(let i=0; i<data.length; i++){
+        let logCard = document.createElement("div");
+        let cardTitle = document.createElement("div");
+        buildLogPageCardTitle(data, logCard, cardTitle);
+        
+        for(let j=1; j<data[i].length; j++){
+            let logEntry = document.createElement("div");
+            buildLogPageCardEntries(data, logCard, logEntry, i, j);
         }
     }
 }
+function buildLogPageCardTitle(data, logCard, cardTitle){
+    logCard.setAttribute("class", "log-card");
+    cardTitle.setAttribute("class", "card-title");
+    logCard.appendChild(cardTitle);
+    cardTitle.innerHTML = data[0][0][1]
+    pageSpecificLogDiv.appendChild(logCard);
+}
+function buildLogPageCardEntries(data, logCard, logEntry, i, j){
+    logEntry.setAttribute("class", "log-entry");
+    logCard.appendChild(logEntry);
+    logEntry.innerHTML = data[i][j][0] + "kg   x   " + data[i][j][1];
+}
+
 function getCurrentExerciseNumber(e){
     let currentExerciseNumber = e.target.id;
     currentExerciseNumber = currentExerciseNumber.charAt(currentExerciseNumber.length - 1);
@@ -116,7 +157,7 @@ function pushData(e) {
         exerciseLog.push(exerciseDataArray);
     }
     // insert at start of array
-    exerciseLog.unshift([date,exerciseName]);
+    exerciseLog.unshift([exerciseName, date]);
     saveToLocalStorage(exerciseLog, exerciseName);
     changeBackgroundAfterFinish(e);
 }
