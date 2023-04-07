@@ -82,15 +82,17 @@ function openExerciseLog(currentExerciseName){
     pageLogDiv.style.display = "none";
     pageSpecificLogDiv.style.display = "flex";
     let data = [];
+    let keys = [];
 
     let allKeys = Object.keys(localStorage);
     for(let i=0; i<allKeys.length; i++){
         if(allKeys[i].includes(currentExerciseName)){
             data.push(getFromLocalStorage(allKeys[i])); // save all data in array
+            keys.push(localStorage.key(i)); // save keys to delete them from localStorage if needed
         }
     }
     buildLogPageHeader(data);
-    buildLogPageCards(data);
+    buildLogPageCards(data, keys);
     console.log(data);
 }
 function buildLogPageHeader(data){
@@ -100,26 +102,28 @@ function buildLogPageHeader(data){
     headerDiv.appendChild(headerH1);
     headerDiv.setAttribute("id", "log-header");
     headerH1.innerHTML = data[0][0][0];
-
-
 }
-function buildLogPageCards(data){
+function buildLogPageCards(data, keys){
     for(let i=0; i<data.length; i++){
         let logCard = document.createElement("div");
         let cardTitle = document.createElement("div");
-        buildLogPageCardTitle(data, logCard, cardTitle);
-        
+        let titleContainer = document.createElement("div");
+        buildLogPageCardTitle(data, logCard, cardTitle, titleContainer, i);
+        buildLogPageCardDeleteButton(cardTitle, i, keys);
         for(let j=1; j<data[i].length; j++){
             let logEntry = document.createElement("div");
             buildLogPageCardEntries(data, logCard, logEntry, i, j);
         }
     }
 }
-function buildLogPageCardTitle(data, logCard, cardTitle){
+function buildLogPageCardTitle(data, logCard, cardTitle, titleContainer, i){
+    logCard.setAttribute("id", `log-card${i}`);
     logCard.setAttribute("class", "log-card");
     cardTitle.setAttribute("class", "card-title");
+    titleContainer.setAttribute("class", "title-container");
     logCard.appendChild(cardTitle);
-    cardTitle.innerHTML = data[0][0][1]
+    cardTitle.appendChild(titleContainer);
+    titleContainer.innerHTML = data[0][0][1]
     pageSpecificLogDiv.appendChild(logCard);
 }
 function buildLogPageCardEntries(data, logCard, logEntry, i, j){
@@ -127,7 +131,22 @@ function buildLogPageCardEntries(data, logCard, logEntry, i, j){
     logCard.appendChild(logEntry);
     logEntry.innerHTML = data[i][j][0] + "kg   x   " + data[i][j][1];
 }
+function buildLogPageCardDeleteButton(cardTitle, i, keys){
+    let logDeleteButton = document.createElement("button");
+    logDeleteButton.setAttribute("class", "delete-exercise delete-log");
+    cardTitle.appendChild(logDeleteButton);
+    logDeleteButton.innerHTML = "X";
 
+    logDeleteButton.addEventListener("click", function(e){
+        deleteExerciseLog(e, keys, i);
+    })
+}  
+function deleteExerciseLog(e, keys, i){
+    let key = keys[i];
+    localStorage.removeItem(key);
+    const deleteLogCard = document.getElementById(`log-card${i}`);
+    deleteLogCard.remove();
+}
 function getCurrentExerciseNumber(e){
     let currentExerciseNumber = e.target.id;
     currentExerciseNumber = currentExerciseNumber.charAt(currentExerciseNumber.length - 1);
