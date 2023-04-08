@@ -106,10 +106,12 @@ input{
     font-size: 2vh;
 }
 .log input {
+    color: black;
     width: 70%;
     justify-self: center;
 }
 .log button {
+    color: black;
     justify-self: end;
     font-size: 1.7vh;
     width: 20%;
