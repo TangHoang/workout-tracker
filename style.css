@@ -179,12 +179,12 @@ button {
     bottom: 10%;
     left: 50%;
     transform: translateX(-50%);
-    color: #FFFCFF;
+    color: black;
     width: 16%;
     height: 6vh;
     font-size: 5vh;
     margin-top: 30px;
-    background-color: rgb(17, 16, 16);
+    background-color: cornflowerblue;
     align-self: center;
     justify-self: center;
     text-align: center;
