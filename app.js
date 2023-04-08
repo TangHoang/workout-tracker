@@ -7,7 +7,6 @@ let exerciseNumber = 1;
 const key = "workouts";
 let exerciseList = ["Bench Press", "Squat", "Deadlift", "Pull Up", "Dips", "Leg Press", "Bicep Curl", "Skullcrushers", "Lateral Raises"];
 let exerciseObject = {"Bench Press":[], "Squat":[], "Deadlift":[], "Pull Up":[], "Dips":[], "Leg Press":[], "Bicep Curl":[], "Skullcrushers":[], "Lateral Raises":[]};
-localStorage.setItem(key, JSON.stringify(exerciseObject));
 
 let dateContainer = document.getElementById("date");
 const addSetButton = document.querySelector(".add-set");
@@ -165,7 +164,6 @@ function pushData(e) {
 }
 
 function saveToLocalStorage(exerciseLog, exerciseName) {
-    exerciseObject = JSON.parse(localStorage.getItem(key));
     exerciseObject[exerciseName].push({date: new Date().toLocaleString(), sets: exerciseLog});
     localStorage.setItem(key, JSON.stringify(exerciseObject));
 }
