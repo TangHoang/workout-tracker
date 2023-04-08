@@ -1,6 +1,6 @@
 {
     "name": "workout tracker",
-    "start_url": "/",
+    "start_url": "/workout-tracker",
     "display": "standalone",
 
     "icons": [
