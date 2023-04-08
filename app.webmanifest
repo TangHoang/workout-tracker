@@ -5,7 +5,7 @@
 
     "icons": [
         {
-            "src": "icons/starke.png",
+            "src": "/icons/starke.png",
             "sizes": "512x512",
             "type": "image/png"
 
