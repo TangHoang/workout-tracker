@@ -4,9 +4,10 @@ const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Satur
 let currentDay = days[otherDate.getDay()];
 let setNumber = 1;
 let exerciseNumber = 1;
-let benchPressLog, squatLog, deadliftLog, pullUpLog, dipsLog, legPressLog, bicepCurlLog, skullcrushersLog, lateralRaisesLog = [];
-let logs = [benchPressLog, squatLog, deadliftLog, pullUpLog, dipsLog, legPressLog, bicepCurlLog, skullcrushersLog, lateralRaisesLog];
+const key = "workouts";
 let exerciseList = ["Bench Press", "Squat", "Deadlift", "Pull Up", "Dips", "Leg Press", "Bicep Curl", "Skullcrushers", "Lateral Raises"];
+let exerciseObject = {"Bench Press":[], "Squat":[], "Deadlift":[], "Pull Up":[], "Dips":[], "Leg Press":[], "Bicep Curl":[], "Skullcrushers":[], "Lateral Raises":[]};
+localStorage.setItem(key, JSON.stringify(exerciseObject));
 
 let dateContainer = document.getElementById("date");
 const addSetButton = document.querySelector(".add-set");
@@ -21,6 +22,20 @@ const pageLogDiv = document.getElementById("log_html");
 const pageSpecificLogDiv = document.getElementById("specific-log_html");
 const links = document.getElementsByClassName("icon");
 const logsGrid = document.getElementById("logs-grid");
+
+// switch pages
+for(let i=0; i<links.length; i++) {
+    let self = links[i];
+    self.addEventListener("click", togglePages);
+}
+
+addSetButton.addEventListener("click", addSet);
+finishExerciseButton.addEventListener("click", pushData);
+addExerciseButton.addEventListener("click", addExercise);
+deleteExerciseButton.addEventListener("click", deleteExercise);
+
+dateContainer.innerHTML = date;
+displayCurrentDay.innerHTML = currentDay;
 
 function togglePages(e) {
     // checks id of link tag
@@ -45,21 +60,6 @@ function togglePages(e) {
             pageSpecificLogDiv.style.display = "none";
     }
 }
-
-// switch pages
-for(let i=0; i<links.length; i++) {
-    let self = links[i];
-    self.addEventListener("click", togglePages);
-}
-
-addSetButton.addEventListener("click", addSet);
-finishExerciseButton.addEventListener("click", pushData);
-addExerciseButton.addEventListener("click", addExercise);
-deleteExerciseButton.addEventListener("click", deleteExercise);
-
-dateContainer.innerHTML = date;
-displayCurrentDay.innerHTML = currentDay;
-
 function loadLogPage(){
     for(let i=0; i<exerciseList.length; i++){
         let modifiedString = exerciseList[i].replace((/\s+/g, '')).toLowerCase();
@@ -83,21 +83,13 @@ function openExerciseLog(currentExerciseName){
     pageSpecificLogDiv.style.display = "flex";
     let data = [];
     let keys = [];
-
-    let allKeys = Object.keys(localStorage);
-    if(allKeys == []){
-        buildLogPageHeader(data, currentExerciseName);
-        return;
-    }
-    for(let i=0; i<allKeys.length; i++){
-        if(allKeys[i].includes(currentExerciseName)){
-            data.push(getFromLocalStorage(allKeys[i])); // save all data in array
-            keys.push(localStorage.key(i)); // save keys to delete them from localStorage if needed
-        }
+    let exerciseObject = getFromLocalStorage(key);
+   
+    for(let i=0; i<exerciseObject[currentExerciseName].length; i++){
+        data.push(exerciseObject[currentExerciseName][i]); // save all data in array (array of objects)        
     }
     buildLogPageHeader(data, currentExerciseName);
-    buildLogPageCards(data, keys);
-    console.log(data);
+    buildLogPageCards(data, keys, currentExerciseName);
 }
 function buildLogPageHeader(data, currentExerciseName){
     let headerDiv = document.createElement("div");
@@ -109,35 +101,35 @@ function buildLogPageHeader(data, currentExerciseName){
         headerH1.innerHTML = "<br />" + "empty...";
         return;
     }
-    headerH1.innerHTML = data[0][0][0];
+    headerH1.innerHTML = currentExerciseName;
 }
-function buildLogPageCards(data, keys){
+function buildLogPageCards(data, keys, currentExerciseName){
     for(let i=0; i<data.length; i++){
         let logCard = document.createElement("div");
         let cardTitle = document.createElement("div");
         let titleContainer = document.createElement("div");
-        buildLogPageCardTitle(data, logCard, cardTitle, titleContainer, i);
+        buildLogPageCardTitle(data, logCard, cardTitle, titleContainer, i, currentExerciseName);
         buildLogPageCardDeleteButton(cardTitle, i, keys);
-        for(let j=1; j<data[i].length; j++){
+        for(let j=0; j<data[i]["sets"].length; j++){
             let logEntry = document.createElement("div");
             buildLogPageCardEntries(data, logCard, logEntry, i, j);
         }
     }
 }
-function buildLogPageCardTitle(data, logCard, cardTitle, titleContainer, i){
+function buildLogPageCardTitle(data, logCard, cardTitle, titleContainer, i, currentExerciseName){
     logCard.setAttribute("id", `log-card${i}`);
     logCard.setAttribute("class", "log-card");
     cardTitle.setAttribute("class", "card-title");
     titleContainer.setAttribute("class", "title-container");
     logCard.appendChild(cardTitle);
     cardTitle.appendChild(titleContainer);
-    titleContainer.innerHTML = data[0][0][1]
+    titleContainer.innerHTML = data[i]["date"];
     pageSpecificLogDiv.appendChild(logCard);
 }
 function buildLogPageCardEntries(data, logCard, logEntry, i, j){
     logEntry.setAttribute("class", "log-entry");
     logCard.appendChild(logEntry);
-    logEntry.innerHTML = data[i][j][0] + "kg   x   " + data[i][j][1];
+    logEntry.innerHTML = data[i]["sets"][j][0] + "kg   x   " + data[i]["sets"][j][1];
 }
 function buildLogPageCardDeleteButton(cardTitle, i, keys){
     let logDeleteButton = document.createElement("button");
@@ -155,25 +147,9 @@ function deleteExerciseLog(e, keys, i){
     const deleteLogCard = document.getElementById(`log-card${i}`);
     deleteLogCard.remove();
 }
-function getCurrentExerciseNumber(e){
-    let currentExerciseNumber = e.target.id;
-    currentExerciseNumber = currentExerciseNumber.charAt(currentExerciseNumber.length - 1);
-    return currentExerciseNumber;
-}
-
-function getCurrentExerciseName(e){
-    let currentExerciseNumber = getCurrentExerciseNumber(e);
-    let exerciseName = document.getElementById(`exercise-${currentExerciseNumber}`).value; //this ID is from the input node
-    return exerciseName;
-}
-
-function changeBackgroundAfterFinish(e){
-    const exerciseBody = document.getElementById(`exercise${getCurrentExerciseNumber(e)}`);
-    exerciseBody.style.background = "#B9deb7";
-}
 // push data to local Storage
 function pushData(e) {
-    let exerciseName = getCurrentExerciseName(e);
+    let exerciseName =getCurrentExerciseName(e);
     let currentExerciseNumber = getCurrentExerciseNumber(e);
     let exerciseDataArray = [];
     let exerciseLog = [];
@@ -183,23 +159,20 @@ function pushData(e) {
         exerciseDataArray = Array.from(exerciseData).map(t => t.value);
         exerciseLog.push(exerciseDataArray);
     }
-    // insert at start of array
-    exerciseLog.unshift([exerciseName, date]);
     saveToLocalStorage(exerciseLog, exerciseName);
     changeBackgroundAfterFinish(e);
 }
 
 function saveToLocalStorage(exerciseLog, exerciseName) {
-    let date = new Date();
-    let key = exerciseName + " " + date;
-    localStorage.setItem(`${key}`, JSON.stringify(exerciseLog));
+    exerciseObject = JSON.parse(localStorage.getItem(key));
+    exerciseObject[exerciseName].push({date: new Date().toLocaleString(), sets: exerciseLog});
+    localStorage.setItem(key, JSON.stringify(exerciseObject));
 }
 
 function getFromLocalStorage(key) {
-    let data = JSON.parse(localStorage.getItem(`${key}`));
+    let data = JSON.parse(localStorage.getItem(key));
     return data;
 }
-
 function deleteExercise(e) {
     exerciseNumber--;
     let deleteExerciseDiv = document.getElementById(`exercise${getCurrentExerciseNumber(e)}`);
@@ -231,7 +204,6 @@ function addSet(e) {
 function addExercise() {
     setNumber = 1;
     exerciseNumber++;
-    console.log(exerciseNumber);
     // create new exercise Card
     // by creating nodes first
     // MAKE THIS UGLY MESS PRETTIER PLEASE!
@@ -343,5 +315,20 @@ function addExercise() {
     createAddSetButton.addEventListener("click", addSet);
     createDeleteExerciseButton.addEventListener("click", deleteExercise);
     createFinishExerciseButton.addEventListener("click", pushData);
+}
+function getCurrentExerciseNumber(e){
+    let currentExerciseNumber = e.target.id;
+    currentExerciseNumber = currentExerciseNumber.charAt(currentExerciseNumber.length - 1);
+    return currentExerciseNumber;
+}
+
+function getCurrentExerciseName(e){
+    let currentExerciseNumber = getCurrentExerciseNumber(e);
+    let exerciseName = document.getElementById(`exercise-${currentExerciseNumber}`).value; //this ID is from the input node
+    return exerciseName;
+}
+function changeBackgroundAfterFinish(e){
+    const exerciseBody = document.getElementById(`exercise${getCurrentExerciseNumber(e)}`);
+    exerciseBody.style.background = "#B9deb7";
 }
 loadLogPage();
