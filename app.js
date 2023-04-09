@@ -162,12 +162,10 @@ function pushData(e) {
     saveToLocalStorage(exerciseLog, exerciseName);
     changeBackgroundAfterFinish(e);
 }
-
 function saveToLocalStorage(exerciseLog, exerciseName) {
     exerciseObject[exerciseName].push({date: new Date().toLocaleString(), sets: exerciseLog});
     localStorage.setItem(key, JSON.stringify(exerciseObject));
 }
-
 function getFromLocalStorage(key) {
     let data = JSON.parse(localStorage.getItem(key));
     return data;
@@ -178,7 +176,6 @@ function deleteExercise(e) {
     deleteExerciseDiv.replaceChildren();
     deleteExerciseDiv.remove();
 }
-
 function addSet(e) {
     const exercisePage = document.getElementById(`log-${getCurrentExerciseNumber(e)}`);
 
@@ -201,125 +198,42 @@ function addSet(e) {
     // exercisePage.appendChild(okButton);
     exercisePage.appendChild(blankDiv);
 }
-
 function addExercise() {
+    console.log("ja moin");
     setNumber = 1;
     exerciseNumber++;
     // create new exercise Card
-    // by creating nodes first
-    // MAKE THIS UGLY MESS PRETTIER PLEASE!
-    let createExerciseDiv = document.createElement("div");
-    createExerciseDiv.setAttribute("class", "exercise");
-    createExerciseDiv.setAttribute("id", `exercise${exerciseNumber}`);
-
-    const createExerciseControlDiv = document.createElement("div");
-    createExerciseControlDiv.setAttribute("class", "exercise-control");
-
-    const createTextContainerDiv = document.createElement("div");
-    createTextContainerDiv.setAttribute("class", "text-container");
-
-    const createInputDiv = document.createElement("input");
-    createInputDiv.setAttribute("type", "text");
-    createInputDiv.setAttribute("list", "exerciseList");
-    createInputDiv.setAttribute("placeholder", "Enter Here");
-    createInputDiv.setAttribute("class", "exercise-input");
-    createInputDiv.setAttribute("id", `exercise-${exerciseNumber}`);
-
-    const createDatalist = document.createElement("datalist");
-    createDatalist.setAttribute("id", "exerciseList");
-
-    // create suggestions for input field
-    for(let i=0; i<exerciseList.length; i++) {
-        let createOption = document.createElement("option");
-        createOption.setAttribute("value", exerciseList[i]);
-        createOption.innerHTML = exerciseList[i];
-
-        createDatalist.appendChild(createOption);
-    }
-
-    const createSaveExerciseButton = document.createElement("button");
-    createSaveExerciseButton.setAttribute("class", "save-exercise");
-    createSaveExerciseButton.setAttribute("id", `save-exercise${exerciseNumber}`);
-    createSaveExerciseButton.innerHTML = "OK";
-
-    const createDeleteExerciseButton = document.createElement("button");
-    createDeleteExerciseButton.setAttribute("class", "delete-exercise");
-    createDeleteExerciseButton.setAttribute("id", `delete-exercise${exerciseNumber}`);
-    createDeleteExerciseButton.innerHTML = "X";
-
-    const createLogDiv = document.createElement("div");
-    createLogDiv.setAttribute("class", "log");
-    createLogDiv.setAttribute("id", `log-${exerciseNumber}`);
-
-    const createSetDiv = document.createElement("div");
-    createSetDiv.setAttribute("class", "set");
-    createSetDiv.innerHTML = "Set";
-
-    const createKgDiv = document.createElement("div");
-    createKgDiv.setAttribute("class", "kg");
-    createKgDiv.innerHTML = "kg";
-
-    const createRepsDiv = document.createElement("div");
-    createRepsDiv.setAttribute("class", "reps");
-    createRepsDiv.innerHTML = "Reps";
-
-    const createBlankDiv = document.createElement("div");
-    createBlankDiv.setAttribute("class", "blank");
-
-    const createSetNumber = document.createElement("div");
-    createSetNumber.innerHTML = "1";
-
-    const createInputKg = document.createElement("input");
-    createInputKg.setAttribute("type", "number");
-    createInputKg.setAttribute("class", `kg-input ${exerciseNumber}${setNumber}`);
-    const createInputReps = document.createElement("input");
-    createInputReps.setAttribute("type", "number");
-    createInputReps.setAttribute("class", `reps-input ${exerciseNumber}${setNumber}`);
-
-    /*
-    const createDeleteSetButton = document.createElement("button");
-    createDeleteSetButton.innerHTML = "X";
-    */
-    const createBlankDiv_2 = document.createElement("div");
-    createBlankDiv_2.setAttribute("class", "blank");
-
-    const createButtonContainer = document.createElement("div");
-    createButtonContainer.setAttribute("class", "button-container");
-
-    const createAddSetButton = document.createElement("button");
-    createAddSetButton.setAttribute("class", "add-set");
-    createAddSetButton.setAttribute("id", `add-set${exerciseNumber}`)
-    createAddSetButton.innerHTML = "+ Set";
-
-    const createFinishExerciseButton = document.createElement("button");
-    createFinishExerciseButton.setAttribute("class", "finish-exercise");
-    createFinishExerciseButton.setAttribute("id", `finish-exercise${exerciseNumber}`);
-    createFinishExerciseButton.innerHTML = "Finish";
-
-    //then creating html document structure
-    pageIndexDiv.appendChild(createExerciseDiv);
-        createExerciseDiv.appendChild(createExerciseControlDiv);
-            createExerciseControlDiv.appendChild(createTextContainerDiv);
-                createTextContainerDiv.appendChild(createInputDiv);
-                createTextContainerDiv.appendChild(createDatalist);
-            createExerciseControlDiv.appendChild(createSaveExerciseButton);
-            createExerciseControlDiv.appendChild(createDeleteExerciseButton);
-        createExerciseDiv.appendChild(createLogDiv);
-            createLogDiv.appendChild(createSetDiv);
-            createLogDiv.appendChild(createKgDiv);
-            createLogDiv.appendChild(createRepsDiv);
-            createLogDiv.appendChild(createBlankDiv);
-            createLogDiv.appendChild(createSetNumber);
-            createLogDiv.appendChild(createInputKg);
-            createLogDiv.appendChild(createInputReps);
-            // createLogDiv.appendChild(createDeleteSetButton);
-            createLogDiv.appendChild(createBlankDiv_2);
-         createExerciseDiv.appendChild(createButtonContainer);
-            createButtonContainer.appendChild(createAddSetButton);
-    createButtonContainer.appendChild(createFinishExerciseButton);
-
+    let templateString = `<div class="exercise" id="exercise${exerciseNumber}"> 
+                                <div class="exercise-control"> 
+                                    <div class="text-container">
+                                        <input type="text" list="exerciseList" placeholder="Enter Here" class="exercise-input" id="exercise-${exerciseNumber}">
+                                    </div>
+                                    <button class="save-exercise" id="save-exercise${exerciseNumber}"> OK </button>
+                                    <button class="delete-exercise" id="delete-exercise${exerciseNumber}"> X </button>
+                                </div>
+                                <div class="log" id="log-${exerciseNumber}">
+                                    <div class="set"> Set </div>
+                                    <div class="kg"> kg </div>
+                                    <div class="reps"> Reps </div>
+                                    <div class="blank"> </div>
+                                    <div> 1 </div>
+                                    <input type="" class="kg-input ${exerciseNumber}${setNumber}">
+                                    <input type="" class="reps-input ${exerciseNumber}${setNumber}">
+                                    <div class="blank"> </div>
+                                </div>
+                                <div class="button-container">
+                                    <button class="add-set" id="add-set${exerciseNumber}"> + Set </button>
+                                    <button class="finish-exercise" id="finish-exercise${exerciseNumber}"> Finish </button>
+                                </div>
+                          </div>          
+                        `;
+    pageIndexDiv.insertAdjacentHTML("beforeend", templateString);  
+    
+    const createAddSetButton = document.getElementById(`add-set${exerciseNumber}`);
     createAddSetButton.addEventListener("click", addSet);
+    const createDeleteExerciseButton = document.getElementById(`delete-exercise${exerciseNumber}`);
     createDeleteExerciseButton.addEventListener("click", deleteExercise);
+    const createFinishExerciseButton = document.getElementById(`finish-exercise${exerciseNumber}`)
     createFinishExerciseButton.addEventListener("click", pushData);
 }
 function getCurrentExerciseNumber(e){
@@ -327,7 +241,6 @@ function getCurrentExerciseNumber(e){
     currentExerciseNumber = currentExerciseNumber.charAt(currentExerciseNumber.length - 1);
     return currentExerciseNumber;
 }
-
 function getCurrentExerciseName(e){
     let currentExerciseNumber = getCurrentExerciseNumber(e);
     let exerciseName = document.getElementById(`exercise-${currentExerciseNumber}`).value; //this ID is from the input node

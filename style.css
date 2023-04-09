@@ -110,6 +110,7 @@ input{
     color: black;
     width: 70%;
     justify-self: center;
+    
 }
 .log button {
     color: black;
@@ -210,4 +211,5 @@ button {
     text-align: center;
     font-weight: bold;
 }
+
 
