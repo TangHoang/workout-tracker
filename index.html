@@ -8,6 +8,20 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="navbar.css">
     <link rel="stylesheet" href="log.css">
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.5/index.global.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            titleFormat: {
+                month: "short",
+                day: "numeric",
+            }
+            });
+            calendar.render();
+        });
+    </script>
     <title>workout tracker</title>
 </head>
 <body>
@@ -68,16 +82,15 @@
     </div>
 
     <div class="page" id="specific-log_html">
-    
-    </div>
 
     </div>
+
     <!--CALENDER PAGE-->
     <div class="page" id="calender_html">
-        <h1>#TODO! calender.html</h1>
+        <div id="calendar"></div>
     </div>
 
-    
+
     <nav class="mobile-nav">
         <a href="#" class="icon">
             <img src="icons/calendar.png" id="link-calender_html" >

@@ -1,3 +1,4 @@
+
 let date = new Date().toLocaleDateString("de-DE", {dateStyle: "medium"});
 let otherDate = new Date();
 const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -57,6 +58,7 @@ function togglePages(e) {
             pageIndexDiv.style.display = "none";
             pageLogDiv.style.display = "none";
             pageSpecificLogDiv.style.display = "none";
+            loadCalenderPage();
     }
 }
 
@@ -72,6 +74,17 @@ function loadLogPage() {
             openExerciseLog(exerciseList[i])
         });
         logsGrid.appendChild(gridElement);
+    }
+}
+
+function loadCalenderPage() {
+    const calenderButtons = document.getElementsByClassName("fc-button");
+    const fcChunks = document.getElementsByClassName("fc-toolbar-chunk");
+    for(let i=0; i<calenderButtons.length; i++){
+        let element = calenderButtons[i];
+        let chunks = fcChunks[i];
+        element.style.padding = "0 0.7em";
+        chunks.style.minWidth = "50px";
     }
 }
 
@@ -196,7 +209,6 @@ function getExercisesOnDay(){
         for(const key of exerciseKeys){
             for(let i=0; i<currentExerciseObject[key].length; i++){
                 if(currentExerciseObject[key][i]["date"].includes(dateKey)){
-                    console.log(currentDayLogObject[dateKey]);
                     currentExerciseObject[key][i].exerciseName = key;
                     currentDayLogObject[dateKey].push(currentExerciseObject[key][i]);
                 }
@@ -289,6 +301,8 @@ function getCurrentExerciseName(e) {
 function changeBackgroundAfterFinish(e) {
     const exerciseBody = document.getElementById(`exercise${getCurrentExerciseNumber(e)}`);
     exerciseBody.style.background = "#B9deb7";
+
 }
 
 loadLogPage();
+

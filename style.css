@@ -14,8 +14,21 @@
 
 #calender_html {
     display: none;
-    height: 100vh;
+    height: 60vh;
+    width: 100%;
+    justify-content: center;
+    margin-top: 50px;
 }
+
+#calender{
+    padding: 0 10px;
+}
+
+.fc-button {
+    line-height: 0.3;
+    color: white;
+}
+
 
 #log_html {
     display: none;
