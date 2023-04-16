@@ -21,7 +21,10 @@
 }
 
 #calender{
+    height: auto;
+    width: 90%;
     padding: 0 10px;
+
 }
 
 .fc-button {
@@ -34,26 +37,31 @@
     display: none;
     flex-flow: column nowrap;
     align-items: center;
-    height: 100vh;
+    height: 100%;
+    width: 100%;
 }
 
 #specific-log_html {
     display: none;
     flex-flow: column nowrap;
     align-items: center;
+    width: 100%;
+    height: 100%;
 }
 
 #specific-daylog_html {
     display: none;
     flex-flow: column nowrap;
     align-items: center;
-    font-size: 3em;
+    height: 100%;
+    width: 100%;
 }
 
 body {
     display: flex;
     flex-flow: column nowrap;
     justify-content: flex-start;
+    align-items: center;
     background-color: #FFFCFF;
     width: 100vw;
     max-width: 450px;

@@ -10,10 +10,14 @@ let exerciseList = ["Bench Press", "Squat", "Deadlift", "Pull Up", "Dips", "Leg 
 let exerciseObject = getFromLocalStorage(exerciseKey);
 if(exerciseObject === null){
     exerciseObject = { "Bench Press": [], "Squat": [], "Deadlift": [], "Pull Up": [], "Dips": [], "Leg Press": [], "Bicep Curl": [], "Skullcrushers": [], "Lateral Raises": [] };
+    localStorage.setItem(exerciseKey, JSON.stringify(exerciseObject));
 }
 let dayLogObject = getFromLocalStorage("dayKey");
 if(dayLogObject === null){
-    dayLogObject = {};
+    // init object with todays date
+    let dayLogObject = {};
+    dayLogObject[date] = [];
+    localStorage.setItem("dayKey", JSON.stringify(dayLogObject));
 }
 // dayLogObject["12.04.2023"] = [{date: "12.04.2023, 12:50", sets: [["120", "5"]], exerciseName: "Bench Press"}];
 let dateContainer = document.getElementById("date");
@@ -102,7 +106,6 @@ function loadCalenderPage() {
 }
 
 function addCalenderEventListeners() {
-    console.log("guten morgen erstmal");
     let currentDayLogObject = JSON.parse(localStorage.getItem("dayKey"));
     let dayLogKeys = Object.keys(currentDayLogObject);
     for(const datekey of dayLogKeys){
@@ -110,23 +113,70 @@ function addCalenderEventListeners() {
         //console.log(formattedDate);
         const calendarCell = document.querySelector(`[data-date="${formattedDate}"]`);
         if(calendarCell !== null){
-            calendarCell.addEventListener("click", openDayLog);
+            calendarCell.addEventListener("click", function(){
+                openDayLog(datekey);
+            });
             calendarCell.style.backgroundColor = "lightgreen";
         }
     }
     return;
 }
 
-function openDayLog(e){
-    console.log("opened day log");
+function openDayLog(currentDate){
+    pageSpecificDayLogDiv.innerHTML = ""; // clear page
     pageCalenderDiv.style.display = "none";
     pageSpecificDayLogDiv.style.display = "flex";
-    return;
+    // build header
+    let headerDiv = document.createElement("div");
+    pageSpecificDayLogDiv.appendChild(headerDiv);
+    let headerH1 = document.createElement("h1");
+    headerDiv.appendChild(headerH1);
+    headerDiv.setAttribute("class", "log-header");
+    headerH1.innerHTML = currentDate;
+    let data = [];
+    let dayLogObject = getFromLocalStorage("dayKey");
+    for (let i = 0; i < dayLogObject[currentDate].length; i++) {
+        data.push(dayLogObject[currentDate][i]); // save all data in array (array of objects)        
+    }
+    console.log(data);
+
+    buildDayLogPageCards(data, currentDate);
+}
+
+function buildDayLogPageCards(data, currentDate){
+    for (let i = 0; i < data.length; i++) {
+        let logCard = document.createElement("div");
+        let cardTitle = document.createElement("div");
+        let titleContainer = document.createElement("div");
+        let currentExerciseName = data[i]["exerciseName"];
+        buildDayLogPageCardTitle(data, logCard, cardTitle, titleContainer, i, currentDate);
+        buildLogPageCardDeleteButton(data, currentExerciseName, cardTitle, i);
+        for (let j = 0; j < data[i]["sets"].length; j++) {
+            let logEntry = document.createElement("div");
+            buildDayLogPageCardEntries(data, logCard, logEntry, i, j);
+        }
+    }
+}
+
+function buildDayLogPageCardTitle(data, logCard, cardTitle, titleContainer, i, currentDate){
+    logCard.setAttribute("class", "log-card");
+    cardTitle.setAttribute("class", "card-title");
+    titleContainer.setAttribute("class", "title-container");
+    logCard.appendChild(cardTitle);
+    cardTitle.appendChild(titleContainer);
+    let currentExerciseName = data[i]["exerciseName"];
+    titleContainer.innerHTML = currentExerciseName;
+    pageSpecificDayLogDiv.appendChild(logCard);
+}
+
+function buildDayLogPageCardEntries(data, logCard, logEntry, i, j){
+    logEntry.setAttribute("class", "log-entry");
+    logCard.appendChild(logEntry);
+    logEntry.innerHTML = data[i]["sets"][j][0] + "kg   x   " + data[i]["sets"][j][1];
 }
 
 function openExerciseLog(currentExerciseName) {
-    // clear page
-    pageSpecificLogDiv.innerHTML = "";
+    pageSpecificLogDiv.innerHTML = "";      // clear page
     pageCalenderDiv.style.display = "none";
     pageIndexDiv.style.display = "none";
     pageLogDiv.style.display = "none";
@@ -140,17 +190,17 @@ function openExerciseLog(currentExerciseName) {
     buildLogPageCards(data, currentExerciseName);
 }
 
-function buildLogPageHeader(data, currentExerciseName) {
+function buildLogPageHeader(data, currentTitle) {
     let headerDiv = document.createElement("div");
     pageSpecificLogDiv.appendChild(headerDiv);
     let headerH1 = document.createElement("h1");
     headerDiv.appendChild(headerH1);
-    headerDiv.setAttribute("id", "log-header");
+    headerDiv.setAttribute("class", "log-header");
     if (data.length == 0) {
         headerH1.innerHTML = "<br />" + "empty...";
         return;
     }
-    headerH1.innerHTML = currentExerciseName;
+    headerH1.innerHTML = currentTitle;
 }
 
 function buildLogPageCards(data, currentExerciseName) {
@@ -167,7 +217,7 @@ function buildLogPageCards(data, currentExerciseName) {
     }
 }
 
-function buildLogPageCardTitle(data, logCard, cardTitle, titleContainer, i, currentExerciseName) {
+function buildLogPageCardTitle(data, logCard, cardTitle, titleContainer, i) {
     logCard.setAttribute("id", data[i]["date"]);
     logCard.setAttribute("class", "log-card");
     cardTitle.setAttribute("class", "card-title");
@@ -196,12 +246,26 @@ function buildLogPageCardDeleteButton(data, currentExerciseName, cardTitle, i) {
 }
 
 function deleteExerciseLog(data, currentExerciseName, i) {
-    let temp = JSON.parse(localStorage.getItem(exerciseKey));
-    let filtered = temp[currentExerciseName].filter(entry => entry["date"] != data[i]["date"]);
-    temp[currentExerciseName] = filtered;
-    localStorage.setItem(exerciseKey, JSON.stringify(temp));
+    // delete on log page
+    let tempLog = JSON.parse(localStorage.getItem(exerciseKey));
+    let filteredLog = tempLog[currentExerciseName].filter(entry => entry["date"] != data[i]["date"]);
+    tempLog[currentExerciseName] = filteredLog;
+    localStorage.setItem(exerciseKey, JSON.stringify(tempLog));
+
+    // delete on dayLog page
+    let tempDayLog = JSON.parse(localStorage.getItem("dayKey"));
+    let currentDay = data[i]["date"].substring(0, 10);
+    let filteredDayLog = tempDayLog[currentDay].filter(entry => entry["exerciseName"] != currentExerciseName);
+    tempDayLog[currentDay] = filteredDayLog;
+    localStorage.setItem("dayKey", JSON.stringify(tempDayLog));
+
     const deleteLogCard = document.getElementById(data[i]["date"]);
-    deleteLogCard.remove();
+    if(deleteLogCard !== null){
+        deleteLogCard.remove();
+    }
+    else{
+        openDayLog(currentDay);
+    }
 }
 
 // push data to local Storage
@@ -219,7 +283,6 @@ function pushData(e) {
     }
     saveToLocalStorage(exerciseLog, exerciseName);
     // for calender
-    dayLogObject[date] = [];
     localStorage.setItem("dayKey", JSON.stringify(dayLogObject));
     getExercisesOnDay();
     changeBackgroundAfterFinish(e);
