@@ -21,6 +21,7 @@ const pageIndexDiv = document.getElementById("index_html");
 const pageCalenderDiv = document.getElementById("calender_html");
 const pageLogDiv = document.getElementById("log_html");
 const pageSpecificLogDiv = document.getElementById("specific-log_html");
+const pageSpecificDayLogDiv = document.getElementById("specific-daylog_html");
 const links = document.getElementsByClassName("icon");
 const logsGrid = document.getElementById("logs-grid");
 
@@ -44,18 +45,21 @@ function togglePages(e) {
     switch (currentPage) {
         case "index_html":
             pageCalenderDiv.style.display = "none";
+            pageSpecificDayLogDiv.style.display = "none";
             pageIndexDiv.style.display = "flex";
             pageLogDiv.style.display = "none";
             pageSpecificLogDiv.style.display = "none";
             break;
         case "log_html":
             pageCalenderDiv.style.display = "none";
+            pageSpecificDayLogDiv.style.display = "none";
             pageIndexDiv.style.display = "none";
             pageLogDiv.style.display = "flex";
             pageSpecificLogDiv.style.display = "none";
             break;
         case "calender_html":
             pageCalenderDiv.style.display = "flex";
+            pageSpecificDayLogDiv.style.display = "none";
             pageIndexDiv.style.display = "none";
             pageLogDiv.style.display = "none";
             pageSpecificLogDiv.style.display = "none";
@@ -83,10 +87,35 @@ function loadCalenderPage() {
     const fcChunks = document.getElementsByClassName("fc-toolbar-chunk");
     for(let i=0; i<calenderButtons.length; i++){
         let element = calenderButtons[i];
-        let chunks = fcChunks[i];
+        let chunk = fcChunks[i];
         element.style.padding = "0 0.7em";
-        chunks.style.minWidth = "50px";
+        chunk.style.minWidth = "50px";
+        chunk.addEventListener("click", addCalenderEventListeners);
     }
+    addCalenderEventListeners();
+}
+
+function addCalenderEventListeners() {
+    console.log("guten morgen erstmal");
+    let currentDayLogObject = JSON.parse(localStorage.getItem("dayKey"));
+    let dayLogKeys = Object.keys(currentDayLogObject);
+    for(const datekey of dayLogKeys){
+        formattedDate = datekey.split(".").reverse().join(".").replaceAll(".", "-"); // turning dd.mm.yyyy to yyyy-mm-dd to find the calendar cell
+        //console.log(formattedDate);
+        const calendarCell = document.querySelector(`[data-date="${formattedDate}"]`);
+        if(calendarCell !== null){
+            calendarCell.addEventListener("click", openDayLog);
+            calendarCell.style.backgroundColor = "lightgreen";
+        }
+    }
+    return;
+}
+
+function openDayLog(e){
+    console.log("opened day log");
+    pageCalenderDiv.style.display = "none";
+    pageSpecificDayLogDiv.style.display = "flex";
+    return;
 }
 
 function openExerciseLog(currentExerciseName) {

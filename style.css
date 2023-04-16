@@ -43,6 +43,12 @@
     align-items: center;
 }
 
+#specific-daylog_html {
+    display: none;
+    flex-flow: column nowrap;
+    align-items: center;
+    font-size: 3em;
+}
 
 body {
     display: flex;
