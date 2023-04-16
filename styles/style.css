@@ -4,6 +4,17 @@
     padding: 0;
     color: black;
 }
+
+:root{
+    --fc-button-text-color: #000;
+    --fc-button-bg-color: cornflowerblue;
+    --fc-button-border-color: #7299bf;
+    --fc-button-hover-bg-color: #3c6e9d;
+    --fc-button-hover-border-color: #3c6489;
+    --fc-button-active-bg-color: #4b6a88;
+    --fc-button-active-border-color: #496583;
+}
+
 #index_html {
     display: flex;
     flex-flow: column nowrap;

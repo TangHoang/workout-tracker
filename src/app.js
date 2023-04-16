@@ -110,13 +110,12 @@ function addCalenderEventListeners() {
     let dayLogKeys = Object.keys(currentDayLogObject);
     for(const datekey of dayLogKeys){
         formattedDate = datekey.split(".").reverse().join(".").replaceAll(".", "-"); // turning dd.mm.yyyy to yyyy-mm-dd to find the calendar cell
-        //console.log(formattedDate);
         const calendarCell = document.querySelector(`[data-date="${formattedDate}"]`);
         if(calendarCell !== null){
             calendarCell.addEventListener("click", function(){
                 openDayLog(datekey);
             });
-            calendarCell.style.backgroundColor = "lightgreen";
+            calendarCell.style.backgroundColor = "mediumseagreen";
         }
     }
     return;
@@ -138,7 +137,6 @@ function openDayLog(currentDate){
     for (let i = 0; i < dayLogObject[currentDate].length; i++) {
         data.push(dayLogObject[currentDate][i]); // save all data in array (array of objects)        
     }
-    console.log(data);
 
     buildDayLogPageCards(data, currentDate);
 }
