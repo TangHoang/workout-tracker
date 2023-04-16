@@ -20,6 +20,7 @@
     flex-flow: column nowrap;
     align-items: center;
     height: auto;
+    width: 100%;
     margin-bottom: 200px;
 }
 

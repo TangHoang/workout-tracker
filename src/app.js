@@ -180,7 +180,7 @@ function openExerciseLog(currentExerciseName) {
     pageLogDiv.style.display = "none";
     pageSpecificLogDiv.style.display = "flex";
     let data = [];
-
+    let exerciseObject = JSON.parse(localStorage.getItem(exerciseKey));
     for (let i = 0; i < exerciseObject[currentExerciseName].length; i++) {
         data.push(exerciseObject[currentExerciseName][i]); // save all data in array (array of objects)        
     }
@@ -281,12 +281,12 @@ function pushData(e) {
     }
     saveToLocalStorage(exerciseLog, exerciseName);
     // for calender
-    localStorage.setItem("dayKey", JSON.stringify(dayLogObject));
     getExercisesOnDay();
     changeBackgroundAfterFinish(e);
 }
 
 function saveToLocalStorage(exerciseLog, exerciseName) {
+    let exerciseObject = JSON.parse(localStorage.getItem(exerciseKey));
     exerciseObject[exerciseName].push({ date: new Date().toLocaleString("de-DE", {dateStyle: "medium", timeStyle: "short"}), sets: exerciseLog });
     localStorage.setItem(exerciseKey, JSON.stringify(exerciseObject));
 }
@@ -302,11 +302,14 @@ function getExercisesOnDay(){
     let currentDayLogObject = JSON.parse(localStorage.getItem("dayKey"));
     let dayLogKeys = Object.keys(currentDayLogObject);
     for (const dateKey of dayLogKeys){
+        currentDayLogObject[dateKey] = []; // prevents doubling of exercises, when an entry is already in existence
         for(const key of exerciseKeys){
             for(let i=0; i<currentExerciseObject[key].length; i++){
                 if(currentExerciseObject[key][i]["date"].includes(dateKey)){
                     currentExerciseObject[key][i].exerciseName = key;
+                    console.log("before push: " + currentDayLogObject[dateKey]);
                     currentDayLogObject[dateKey].push(currentExerciseObject[key][i]);
+                    console.log("after push: " + currentDayLogObject[dateKey]);
                 }
             } 
         }   
