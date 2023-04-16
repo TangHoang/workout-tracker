@@ -8,7 +8,13 @@ let exerciseNumber = 1;
 const exerciseKey = "workouts";
 let exerciseList = ["Bench Press", "Squat", "Deadlift", "Pull Up", "Dips", "Leg Press", "Bicep Curl", "Skullcrushers", "Lateral Raises"];
 let exerciseObject = getFromLocalStorage(exerciseKey);
+if(exerciseObject === null){
+    exerciseObject = { "Bench Press": [], "Squat": [], "Deadlift": [], "Pull Up": [], "Dips": [], "Leg Press": [], "Bicep Curl": [], "Skullcrushers": [], "Lateral Raises": [] };
+}
 let dayLogObject = getFromLocalStorage("dayKey");
+if(dayLogObject === null){
+    dayLogObject = {};
+}
 // dayLogObject["12.04.2023"] = [{date: "12.04.2023, 12:50", sets: [["120", "5"]], exerciseName: "Bench Press"}];
 let dateContainer = document.getElementById("date");
 const addSetButton = document.querySelector(".add-set");
