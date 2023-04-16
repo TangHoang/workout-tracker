@@ -7,8 +7,9 @@ let setNumber = 1;
 let exerciseNumber = 1;
 const exerciseKey = "workouts";
 let exerciseList = ["Bench Press", "Squat", "Deadlift", "Pull Up", "Dips", "Leg Press", "Bicep Curl", "Skullcrushers", "Lateral Raises"];
-let exerciseObject = { "Bench Press": [], "Squat": [], "Deadlift": [], "Pull Up": [], "Dips": [], "Leg Press": [], "Bicep Curl": [], "Skullcrushers": [], "Lateral Raises": [] };
-let dayLogObject = {};
+let exerciseObject = getFromLocalStorage(exerciseKey);
+let dayLogObject = getFromLocalStorage("dayKey");
+// dayLogObject["12.04.2023"] = [{date: "12.04.2023, 12:50", sets: [["120", "5"]], exerciseName: "Bench Press"}];
 let dateContainer = document.getElementById("date");
 const addSetButton = document.querySelector(".add-set");
 const finishExerciseButton = document.querySelector(".finish-exercise");
@@ -96,7 +97,6 @@ function openExerciseLog(currentExerciseName) {
     pageLogDiv.style.display = "none";
     pageSpecificLogDiv.style.display = "flex";
     let data = [];
-    let exerciseObject = getFromLocalStorage(exerciseKey);
 
     for (let i = 0; i < exerciseObject[currentExerciseName].length; i++) {
         data.push(exerciseObject[currentExerciseName][i]); // save all data in array (array of objects)        
