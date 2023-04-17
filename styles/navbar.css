@@ -13,7 +13,7 @@
     max-width: 450px;
     display: flex;
     justify-content: space-around;
-    padding-bottom: 15px;
+    padding-bottom: 10px;
     padding-top: 3px;
     margin-left: auto;
     margin-right: auto;
@@ -31,10 +31,8 @@
     align-items: center;
     width: 20%;
     border-radius: 30px;
-    background-color: rgb(233, 233, 233);
 
-    
-    
+
 }
 .icon img {
     width: 35px;
