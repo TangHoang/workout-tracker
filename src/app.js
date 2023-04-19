@@ -1,4 +1,3 @@
-
 let date = new Date().toLocaleDateString("de-DE", {dateStyle: "medium"});
 let otherDate = new Date();
 const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -19,7 +18,7 @@ if(dayLogObject === null){
     dayLogObject[date] = [];
     localStorage.setItem("dayKey", JSON.stringify(dayLogObject));
 }
-// dayLogObject["12.04.2023"] = [{date: "12.04.2023, 12:50", sets: [["120", "5"]], exerciseName: "Bench Press"}];
+
 let dateContainer = document.getElementById("date");
 const addSetButton = document.querySelector(".add-set");
 const finishExerciseButton = document.querySelector(".finish-exercise");
@@ -98,8 +97,8 @@ function loadCalenderPage() {
     for(let i=0; i<calenderButtons.length; i++){
         let element = calenderButtons[i];
         let chunk = fcChunks[i];
-        element.style.padding = "0 0.7em";
-        chunk.style.minWidth = "50px";
+        element.style.padding = "0 0.6em";
+        chunk.style.minWidth = "30px";
         chunk.addEventListener("click", addCalenderEventListeners);
     }
     addCalenderEventListeners();
@@ -134,7 +133,7 @@ function openDayLog(currentDate){
     headerH1.innerHTML = currentDate;
     let data = [];
     let dayLogObject = getFromLocalStorage("dayKey");
-    for (let i = 0; i < dayLogObject[currentDate].length; i++) {
+    for (let i = 0; i < dayLogObject[currentDate].length; i++) { // #TODO fix this.
         data.push(dayLogObject[currentDate][i]); // save all data in array (array of objects)        
     }
 
@@ -143,6 +142,7 @@ function openDayLog(currentDate){
 
 function buildDayLogPageCards(data, currentDate){
     for (let i = 0; i < data.length; i++) {
+        console.log(currentDate);
         let logCard = document.createElement("div");
         let cardTitle = document.createElement("div");
         let titleContainer = document.createElement("div");
@@ -404,4 +404,9 @@ function changeBackgroundAfterFinish(e) {
 }
 
 loadLogPage();
+
+dayLogObject["12.04.2023"] = [{date: "12.04.2023, 12:50", sets: [["120", "5"]], exerciseName: "Bench Press"}];
+exerciseObject["Bench Press"] = [{"date": "12.04.2023, 12:50", "sets": [["120", "5"]]}];
+localStorage.setItem("dayKey" ,JSON.stringify(dayLogObject));
+localStorage.setItem(exerciseKey, JSON.stringify(exerciseObject));
 
